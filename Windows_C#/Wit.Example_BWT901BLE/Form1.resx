@@ -117,57 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;dataRichTextBox.Name" xml:space="preserve">
-    <value>dataRichTextBox</value>
-  </data>
-  <data name="&gt;&gt;dataRichTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataRichTextBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;dataRichTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>232, 0</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>568, 450</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Sensor Data</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="dataRichTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="dataRichTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 17</value>
+    <value>3, 16</value>
   </data>
   <data name="dataRichTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>562, 430</value>
+    <value>552, 443</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="dataRichTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -184,6 +148,30 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;dataRichTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-3, 0</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>558, 462</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Sensor Data</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>tabSensorData</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="&gt;&gt;groupBox3.Name" xml:space="preserve">
@@ -220,7 +208,7 @@
     <value>0, 0, 10, 0</value>
   </data>
   <data name="leftPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 450</value>
+    <value>232, 488</value>
   </data>
   <data name="leftPanel.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -337,10 +325,10 @@
     <value>Fill</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 124</value>
+    <value>0, 134</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 326</value>
+    <value>222, 354</value>
   </data>
   <data name="groupBox3.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -361,10 +349,10 @@
     <value>0</value>
   </data>
   <data name="bandWidth256.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 228</value>
+    <value>14, 247</value>
   </data>
   <data name="bandWidth256.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 23</value>
+    <value>192, 25</value>
   </data>
   <data name="bandWidth256.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -385,10 +373,10 @@
     <value>0</value>
   </data>
   <data name="bandWidth20.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 189</value>
+    <value>14, 205</value>
   </data>
   <data name="bandWidth20.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 23</value>
+    <value>192, 25</value>
   </data>
   <data name="bandWidth20.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -409,10 +397,10 @@
     <value>1</value>
   </data>
   <data name="returnRate50.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 151</value>
+    <value>15, 164</value>
   </data>
   <data name="returnRate50.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 23</value>
+    <value>192, 25</value>
   </data>
   <data name="returnRate50.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -433,10 +421,10 @@
     <value>2</value>
   </data>
   <data name="returnRate10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 111</value>
+    <value>12, 120</value>
   </data>
   <data name="returnRate10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 23</value>
+    <value>194, 25</value>
   </data>
   <data name="returnRate10.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -460,10 +448,10 @@
     <value>NoControl</value>
   </data>
   <data name="readReg03Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 70</value>
+    <value>13, 76</value>
   </data>
   <data name="readReg03Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 23</value>
+    <value>195, 25</value>
   </data>
   <data name="readReg03Button.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -487,10 +475,10 @@
     <value>NoControl</value>
   </data>
   <data name="endFieldCalibrationButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>121, 267</value>
+    <value>121, 289</value>
   </data>
   <data name="endFieldCalibrationButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 47</value>
+    <value>86, 51</value>
   </data>
   <data name="endFieldCalibrationButton.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -514,10 +502,10 @@
     <value>NoControl</value>
   </data>
   <data name="startFieldCalibrationButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 267</value>
+    <value>13, 289</value>
   </data>
   <data name="startFieldCalibrationButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 47</value>
+    <value>89, 51</value>
   </data>
   <data name="startFieldCalibrationButton.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -541,10 +529,10 @@
     <value>NoControl</value>
   </data>
   <data name="appliedCalibrationButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 32</value>
+    <value>12, 35</value>
   </data>
   <data name="appliedCalibrationButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 23</value>
+    <value>195, 25</value>
   </data>
   <data name="appliedCalibrationButton.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -595,7 +583,7 @@
     <value>0, 0</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 124</value>
+    <value>222, 134</value>
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -616,10 +604,10 @@
     <value>1</value>
   </data>
   <data name="stopScanButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>133, 46</value>
+    <value>133, 50</value>
   </data>
   <data name="stopScanButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 25</value>
   </data>
   <data name="stopScanButton.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -640,10 +628,10 @@
     <value>0</value>
   </data>
   <data name="startScanButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 46</value>
+    <value>14, 50</value>
   </data>
   <data name="startScanButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 25</value>
   </data>
   <data name="startScanButton.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -663,17 +651,272 @@
   <data name="&gt;&gt;startScanButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>zh-CN</value>
-  </metadata>
+  <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="tabMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabMain.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>553, 462</value>
+  </data>
+  <data name="tabMain.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tabMain.Text" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="&gt;&gt;tabMain.Name" xml:space="preserve">
+    <value>tabMain</value>
+  </data>
+  <data name="&gt;&gt;tabMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabMain.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabSensorData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabSensorData.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabSensorData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>553, 462</value>
+  </data>
+  <data name="tabSensorData.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabSensorData.Text" xml:space="preserve">
+    <value>Sensor Data</value>
+  </data>
+  <data name="&gt;&gt;tabSensorData.Name" xml:space="preserve">
+    <value>tabSensorData</value>
+  </data>
+  <data name="&gt;&gt;tabSensorData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabSensorData.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabSensorData.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxRawData.Name" xml:space="preserve">
+    <value>richTextBoxRawData</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxRawData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxRawData.Parent" xml:space="preserve">
+    <value>tabRawData</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxRawData.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabRawData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabRawData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>553, 462</value>
+  </data>
+  <data name="tabRawData.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabRawData.Text" xml:space="preserve">
+    <value>Raw data</value>
+  </data>
+  <data name="&gt;&gt;tabRawData.Name" xml:space="preserve">
+    <value>tabRawData</value>
+  </data>
+  <data name="&gt;&gt;tabRawData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabRawData.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabRawData.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabGraph.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;angleChartControl.Name" xml:space="preserve">
+    <value>angleChartControl</value>
+  </data>
+  <data name="&gt;&gt;angleChartControl.Type" xml:space="preserve">
+    <value>Syncfusion.Windows.Forms.Chart.ChartControl, Syncfusion.Chart.Windows, Version=25.1462.35.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89</value>
+  </data>
+  <data name="&gt;&gt;angleChartControl.Parent" xml:space="preserve">
+    <value>tabGraph</value>
+  </data>
+  <data name="&gt;&gt;angleChartControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;AccelerationChart.Name" xml:space="preserve">
+    <value>AccelerationChart</value>
+  </data>
+  <data name="&gt;&gt;AccelerationChart.Type" xml:space="preserve">
+    <value>Syncfusion.Windows.Forms.Chart.ChartControl, Syncfusion.Chart.Windows, Version=25.1462.35.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89</value>
+  </data>
+  <data name="&gt;&gt;AccelerationChart.Parent" xml:space="preserve">
+    <value>tabGraph</value>
+  </data>
+  <data name="&gt;&gt;AccelerationChart.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabGraph.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabGraph.Size" type="System.Drawing.Size, System.Drawing">
+    <value>553, 462</value>
+  </data>
+  <data name="tabGraph.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tabGraph.Text" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="&gt;&gt;tabGraph.Name" xml:space="preserve">
+    <value>tabGraph</value>
+  </data>
+  <data name="&gt;&gt;tabGraph.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabGraph.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabGraph.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 0</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>561, 488</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="richTextBoxRawData.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="richTextBoxRawData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="richTextBoxRawData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>553, 462</value>
+  </data>
+  <data name="richTextBoxRawData.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="richTextBoxRawData.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;richTextBoxRawData.Name" xml:space="preserve">
+    <value>richTextBoxRawData</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxRawData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxRawData.Parent" xml:space="preserve">
+    <value>tabRawData</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxRawData.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="angleChartControl.Legend.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="angleChartControl.Legend.Location" type="System.Drawing.Point, System.Drawing">
+    <value>468, 105</value>
+  </data>
+  <data name="angleChartControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 251</value>
+  </data>
+  <data name="angleChartControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>550, 254</value>
+  </data>
+  <data name="angleChartControl.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="angleChartControl.Text" xml:space="preserve">
+    <value>Angle over time</value>
+  </data>
+  <data name="angleChartControl.Title.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="&gt;&gt;angleChartControl.Name" xml:space="preserve">
+    <value>angleChartControl</value>
+  </data>
+  <data name="&gt;&gt;angleChartControl.Type" xml:space="preserve">
+    <value>Syncfusion.Windows.Forms.Chart.ChartControl, Syncfusion.Chart.Windows, Version=25.1462.35.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89</value>
+  </data>
+  <data name="&gt;&gt;angleChartControl.Parent" xml:space="preserve">
+    <value>tabGraph</value>
+  </data>
+  <data name="&gt;&gt;angleChartControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AccelerationChart.Legend.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="AccelerationChart.Legend.Location" type="System.Drawing.Point, System.Drawing">
+    <value>435, 113</value>
+  </data>
+  <data name="AccelerationChart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="AccelerationChart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>550, 254</value>
+  </data>
+  <data name="AccelerationChart.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="AccelerationChart.Text" xml:space="preserve">
+    <value>Acceleration over time</value>
+  </data>
+  <data name="AccelerationChart.Title.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 18pt</value>
+  </data>
+  <data name="&gt;&gt;AccelerationChart.Name" xml:space="preserve">
+    <value>AccelerationChart</value>
+  </data>
+  <data name="&gt;&gt;AccelerationChart.Type" xml:space="preserve">
+    <value>Syncfusion.Windows.Forms.Chart.ChartControl, Syncfusion.Chart.Windows, Version=25.1462.35.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89</value>
+  </data>
+  <data name="&gt;&gt;AccelerationChart.Parent" xml:space="preserve">
+    <value>tabGraph</value>
+  </data>
+  <data name="&gt;&gt;AccelerationChart.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 450</value>
+    <value>800, 488</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>

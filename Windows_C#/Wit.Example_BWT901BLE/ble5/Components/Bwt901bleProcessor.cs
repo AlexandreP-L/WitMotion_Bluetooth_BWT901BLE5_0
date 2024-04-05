@@ -85,34 +85,44 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
             {
                 try
                 {
-                    // 暂停读取
+                    // Pause playback
                     while (DataProcessorContext.AutoReadPause) Thread.Sleep(1000);
-
-                    // 读磁场类型
+                    string rawData = string.Empty;
+                    // Read the type of magnetic field
                     ReadMagType(DeviceModel);
-                    
-                    // 控制读取频率
+
+                    // Control playback frequency
                     Thread.Sleep(DataProcessorContext.AutoReadInterval);
 
-                    DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 3A 00"));//磁场
-                    DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 51 00"));//四元数
-
-
-                    // 不需要读那么快的数据
+                    DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 3A 00"));//Magnetic field
+                    rawData += $"[{DateTime.Now}] Send: FF AA 27 3A 00\n";
+                    rawData += $"[{DateTime.Now}] Recv: {DeviceModel.GetDeviceData("ReceiveData")}\n";
+                    DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 51 00"));//Quaternion
+                    rawData += $"[{DateTime.Now}] Send: FF AA 27 51 00\n";
+                    rawData += $"[{DateTime.Now}] Recv: {DeviceModel.GetDeviceData("ReceiveData")}\n";
+                    // No need to read data so quickly
                     if (++count % 50 == 0) { 
-                        DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 64 00"));//电量
-                        DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 40 00"));//温度
+                        DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 64 00"));// Power
+                        rawData += $"[{DateTime.Now}] Send: FF AA 27 64 00\n";
+                        rawData += $"[{DateTime.Now}] Recv: {DeviceModel.GetDeviceData("ReceiveData")}\n";
+                        DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 40 00"));// Temperature
+                        rawData += $"[{DateTime.Now}] Send: FF AA 27 40 00\n";
+                        rawData += $"[{DateTime.Now}] Recv: {DeviceModel.GetDeviceData("ReceiveData")}\n";
                     }
 
-                    DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 30 00"));//时间
+                    DeviceModel.ReadData(ByteArrayConvert.HexStringToByteArray("FF AA 27 30 00"));// Time
+                    rawData += $"[{DateTime.Now}] Send: FF AA 27 30 00\n";
+                    rawData += $"[{DateTime.Now}] Recv: {DeviceModel.GetDeviceData("ReceiveData")}\n";
 
-                    // 读产品序列号
+
+                    DeviceModel.SetDeviceData("RawData", rawData);
+                    // Read the product serial number
                     ReadSerialNumberReg(DeviceModel);
                     ReadVersionNumberReg(DeviceModel);
                 }
                 catch (Exception e)
                 {
-                    //有异常但不处理
+                    // Not handle exception 
                     Debug.WriteLine("BWT901BLECL5_0DataProcessor:自动读取数据异常");
                 }
             }
@@ -123,13 +133,13 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
         /// </summary>
         private void ParseRegData()
         {
-            // 序列号
-            short? reg7f = DeviceModel.GetDeviceData(new ShortKey("7F"));// 序列号
-            short? reg80 = DeviceModel.GetDeviceData(new ShortKey("80"));// 序列号
-            short? reg81 = DeviceModel.GetDeviceData(new ShortKey("81"));// 序列号
-            short? reg82 = DeviceModel.GetDeviceData(new ShortKey("82"));// 序列号
-            short? reg83 = DeviceModel.GetDeviceData(new ShortKey("83"));// 序列号
-            short? reg84 = DeviceModel.GetDeviceData(new ShortKey("84"));// 序列号
+            // serial number
+            short? reg7f = DeviceModel.GetDeviceData(new ShortKey("7F"));// serial number
+            short? reg80 = DeviceModel.GetDeviceData(new ShortKey("80"));// serial number
+            short? reg81 = DeviceModel.GetDeviceData(new ShortKey("81"));// serial number
+            short? reg82 = DeviceModel.GetDeviceData(new ShortKey("82"));// serial number
+            short? reg83 = DeviceModel.GetDeviceData(new ShortKey("83"));// serial number
+            short? reg84 = DeviceModel.GetDeviceData(new ShortKey("84"));// serial number
             if (reg7f !=null &&
                 reg80 !=null &&
                 reg81 !=null &&
@@ -149,18 +159,18 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
             }
 
 
-            var reg50_0 = DeviceModel.GetDeviceData(new ShortKey("30"));// 年月
-            var reg50_1 = DeviceModel.GetDeviceData(new ShortKey("31"));// 日时
-            var reg50_2 = DeviceModel.GetDeviceData(new ShortKey("32"));// 分秒
-            var reg50_3 = DeviceModel.GetDeviceData(new ShortKey("33"));// 毫秒
-            // 如果回传了时间数据包就解算时间
+            var reg50_0 = DeviceModel.GetDeviceData(new ShortKey("30"));// Year
+            var reg50_1 = DeviceModel.GetDeviceData(new ShortKey("31"));// Date and hour
+            var reg50_2 = DeviceModel.GetDeviceData(new ShortKey("32"));// Minutes et seconds
+            var reg50_3 = DeviceModel.GetDeviceData(new ShortKey("33"));// Millisecond
+            // If a time packet is returned, calculate the time
             if (reg50_0 != null &&
                 reg50_1 != null &&
                 reg50_2 != null &&
                 reg50_3 != null
                 )
             {
-                // 解算数据,并且保存到设备数据里
+                // Resolve the data and save it to device data
                 var yy = 2000 + (byte)reg50_0;
                 var MM = (byte)(((short)reg50_0) >> 8);
                 var dd = (byte)reg50_1;
@@ -174,11 +184,11 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
             }
 
 
-            // 版本号
-            var reg2e = DeviceModel.GetDeviceData(new ShortKey("2E"));// 版本号
-            var reg2f = DeviceModel.GetDeviceData(new ShortKey("2F"));// 版本号
+            // Version number
+            var reg2e = DeviceModel.GetDeviceData(new ShortKey("2E"));// Version number
+            var reg2f = DeviceModel.GetDeviceData(new ShortKey("2F"));// Version number
 
-            // 如果有版本号
+            // If there is a Version number
             if (reg2e != null &&
                 reg2f != null)   
             {
@@ -187,7 +197,7 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
                 UInt32 tempVerSion = BitConverter.ToUInt32(vbytes, 0);
                 string sbinary = Convert.ToString(tempVerSion, 2);
                 sbinary = ("").PadLeft((32 - sbinary.Length), '0') + sbinary;
-                if (sbinary.StartsWith("1"))//新版本号
+                if (sbinary.StartsWith("1"))// New Version number
                 {
                     string tempNewVS = Convert.ToUInt32(sbinary.Substring(4 - 3, 14 + 3), 2).ToString();
                     tempNewVS += "." + Convert.ToUInt32(sbinary.Substring(18, 6), 2);
@@ -200,29 +210,29 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
                 }
             }
 
-            //加速度
+            // Acceleration
             var regAx = DeviceModel.GetDeviceData(new ShortKey("61_0"));
             var regAy = DeviceModel.GetDeviceData(new ShortKey("61_1"));
             var regAz = DeviceModel.GetDeviceData(new ShortKey("61_2"));
-            // 角速度
+            // Angular velocity
             var regWx = DeviceModel.GetDeviceData(new ShortKey("61_3"));
             var regWy = DeviceModel.GetDeviceData(new ShortKey("61_4"));
             var regWz = DeviceModel.GetDeviceData(new ShortKey("61_5"));
-            // 角度
+            // Angle
             var regAngleX = DeviceModel.GetDeviceData(new ShortKey("61_6"));
             var regAngleY = DeviceModel.GetDeviceData(new ShortKey("61_7"));
             var regAngleZ = DeviceModel.GetDeviceData(new ShortKey("61_8"));
-            // 四元数
+            // Quaternion
             var regQ1 = DeviceModel.GetDeviceData(new ShortKey("51"));
             var regQ2 = DeviceModel.GetDeviceData(new ShortKey("52"));
             var regQ3 = DeviceModel.GetDeviceData(new ShortKey("53"));
             var regQ4 = DeviceModel.GetDeviceData(new ShortKey("54"));
-            // 温度和电量
+            // Temperature and battery
             var regTemperature = DeviceModel.GetDeviceData(new ShortKey("40"));
             var regPower = DeviceModel.GetDeviceData(new ShortKey("64"));
 
 
-            // 加速度解算
+            // Solution of Acceleration
             if (regAx!=null)
             {
                 DeviceModel.SetDeviceData(WitSensorKey.AccX, Math.Round((short)(regAx) / 32768.0 * 16, 3));
@@ -236,7 +246,7 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
                 DeviceModel.SetDeviceData(WitSensorKey.AccZ, Math.Round((short)(regAz) / 32768.0 * 16, 3));
             }
 
-            // 角速度解算
+            // Solution of Angular velocity
             if (regWx != null)
             {
                 DeviceModel.SetDeviceData(WitSensorKey.AsX, Math.Round((short)(regWx) / 32768.0 * 2000, 3));
@@ -250,7 +260,7 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
                 DeviceModel.SetDeviceData(WitSensorKey.AsZ, Math.Round((short)(regWz) / 32768.0 * 2000, 3));
             }
 
-            // 角度
+            // Angle
             if (regAngleX != null)
             {
                 DeviceModel.SetDeviceData(WitSensorKey.AngleX, Math.Round((short)(regAngleX) / 32768.0 * 180, 3));
@@ -264,11 +274,11 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
                 DeviceModel.SetDeviceData(WitSensorKey.AngleZ, Math.Round((short)(regAngleZ) / 32768.0 * 180, 3));
             }
 
-            // 磁场
+            // Magnetic field
             var regHX = DeviceModel.GetDeviceData(new ShortKey("3A"));
             var regHY = DeviceModel.GetDeviceData(new ShortKey("3B"));
             var regHZ = DeviceModel.GetDeviceData(new ShortKey("3C"));
-            var magType = DeviceModel.GetDeviceData("72");// 磁场类型
+            var magType = DeviceModel.GetDeviceData("72");// Type of Magnetic field
             if (regHX != null &&
                 regHY != null &&
                 regHZ != null &&
@@ -284,19 +294,19 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
             }
 
 
-            // 温度
+            // Temperature
             if (regTemperature!=null)
             {
                 DeviceModel.SetDeviceData(WitSensorKey.T, Math.Round((short)(regTemperature) / 100.0, 2));
             }
 
-            // 电量
+            // Power
             if (regPower != null)
             {
 
                 int regPowerValue = (short)(regPower);
 
-                // 计算电量百分比
+                // Calculate battery percentage
                 if (regPowerValue >= 396)
                 {
                     DeviceModel.SetDeviceData(WitSensorKey.PowerPercent, 100);
@@ -347,12 +357,12 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Roles
                 }
 
 
-                // 电量原始值
+                // Original battery value
                 DeviceModel.SetDeviceData(Power, regPowerValue.ToString());
             }
 
 
-            // 四元数
+            // Quaternion
             if (regQ1 != null)
             {
                 DeviceModel.SetDeviceData(WitSensorKey.Q0, Math.Round((short)regQ1 / 32768.0, 5));

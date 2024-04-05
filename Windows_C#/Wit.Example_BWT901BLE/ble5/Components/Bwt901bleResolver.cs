@@ -5,6 +5,7 @@ using Wit.SDK.Device.Device.Device.DKey;
 using Wit.SDK.Modular.Sensor.Device;
 using Wit.SDK.Modular.Sensor.Modular.DataProcessor.Context;
 using Wit.SDK.Modular.Sensor.Modular.ProtocolResolver.Interface;
+using Wit.SDK.Utils;
 
 namespace Wit.SDK.Modular.Sensor.Modular.ProtocolResolver.Roles
 {
@@ -101,7 +102,7 @@ namespace Wit.SDK.Modular.Sensor.Modular.ProtocolResolver.Roles
             byte[] returnData;
 
             deviceModel.SendData(sendData, out returnData, true, 100 + ((DataProcessorContext.AutoReadPause)?600:0));
-
+            
             if (sendData != null && sendData.Length >= 5 && sendData[2] == 0x27 && returnData != null && returnData.Length >= 11)
             {
                 returnData = findReturnData(returnData);
@@ -122,6 +123,11 @@ namespace Wit.SDK.Modular.Sensor.Modular.ProtocolResolver.Roles
                         deviceModel.SetDeviceData(new ShortKey((readReg + 2).ToString("X2")), Pack[2]);
                         deviceModel.SetDeviceData(new ShortKey((readReg + 3).ToString("X2")), Pack[3]);
                     }
+
+                    // Get and save the return data in Hexadecimal string
+                    var byteData = ByteArrayConvert.ByteArrayToHexString(findReturnData(returnData));
+                    deviceModel.SetDeviceData("ReceiveData", byteData);
+
                 }
             }
         }

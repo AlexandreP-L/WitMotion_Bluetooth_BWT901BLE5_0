@@ -244,5 +244,9 @@ namespace Wit.SDK.Modular.WitSensorApi.Modular.BWT901BLE
             OnRecord?.Invoke(this);
         }
 
+        public void SetAngleReference()
+        {
+            SendProtocolData(new byte[] { 0xff, 0xaa, 0x01, 0x08, 0x00, });
+        }   
     }
 }

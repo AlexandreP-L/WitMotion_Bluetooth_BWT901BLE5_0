@@ -10,6 +10,8 @@ using Wit.SDK.Modular.WitSensorApi.Modular.BWT901BLE;
 using Wit.SDK.Device.Device.Device.DKey;
 using Wit.Bluetooth.WinBlue.Utils;
 using Wit.Bluetooth.WinBlue.Interface;
+using Syncfusion.Windows.Forms.Chart;
+using log4net;
 
 namespace Wit.Example_BWT901BLE
 {   
@@ -30,6 +32,16 @@ namespace Wit.Example_BWT901BLE
     /// </summary>
     public partial class Form1 : Form
     {
+        private const string AccelerationXSerieName = "Acceleration X";
+        private const string AccelerationYSerieName = "Acceleration Y";
+        private const string AccelerationZSerieName = "Acceleration Z";
+
+        private const string AngleXSerieName = "Angle X";
+        private const string AngleYSerieName = "Angle Y";
+        private const string AngleZSerieName = "Angle Z";
+
+        private Log4netTraceListener myListener;
+        private ILog logs = LogManager.GetLogger(typeof(Form1));
 
         /// <summary>
         /// 蓝牙管理器
@@ -56,6 +68,8 @@ namespace Wit.Example_BWT901BLE
         public Form1()
         {
             InitializeComponent();
+            myListener = new Log4netTraceListener(logs);
+            Trace.Listeners.Add(myListener);
         }
 
         /// <summary>
@@ -132,6 +146,18 @@ namespace Wit.Example_BWT901BLE
                 {
                     Bwt901ble bWT901BLE = new Bwt901ble(mac,deviceName);
                     FoundDeviceDict.Add(mac, bWT901BLE);
+
+                    if (this.InvokeRequired)
+                    {
+                        Invoke((MethodInvoker)delegate ()
+                        {
+                            SensorMainData device = new SensorMainData();
+                            device.SensorName = bWT901BLE.GetDeviceName();
+                            device.bwt901Ble = bWT901BLE;
+                            this.tabMain.Controls.Add(device);
+                        });
+                    }
+                    
                     // 打开这个设备
                     // Open this device
                     bWT901BLE.Open();
@@ -147,8 +173,68 @@ namespace Wit.Example_BWT901BLE
         /// <param name="BWT901BLE"></param>
         private void BWT901BLE_OnRecord(Bwt901ble BWT901BLE)
         {
-            string text = GetDeviceData(BWT901BLE);
-            Debug.WriteLine(text);
+            if (this.InvokeRequired)
+            {
+                Invoke((MethodInvoker)delegate ()
+                {
+                    // Apply sensor angle of the mainTab
+                    if (this.tabMain.Controls[0] is SensorMainData mainData)
+                    {
+                        var angleZ = BWT901BLE.GetDeviceData(WitSensorKey.AngleZ);
+                        mainData.AngleX = BWT901BLE.GetDeviceData(WitSensorKey.AngleX).ToString() + "°";
+                        mainData.AngleY = BWT901BLE.GetDeviceData(WitSensorKey.AngleY).ToString() + "°";
+                        mainData.AngleZ = angleZ.ToString() + "°";
+
+                        // Update compass start angle with the z angle. 
+                        if (angleZ.HasValue)
+                        {
+                            mainData.SetCompassStartAngle(angleZ.Value);                            
+                        }
+
+                    }
+
+                    // Update data of the acceleration chart 
+                    var sensorTime = BWT901BLE.GetDeviceData(WitSensorKey.ChipTime);
+
+                    var seriesX = GetSeriesByName(this.AccelerationChart.Series, AccelerationXSerieName);
+                    if (seriesX != null && BWT901BLE.GetDeviceData(WitSensorKey.AccX).HasValue)
+                    {
+                        seriesX.Points.Add(sensorTime, BWT901BLE.GetDeviceData(WitSensorKey.AccX).Value);
+                    }
+
+                    var seriesY = GetSeriesByName(this.AccelerationChart.Series, AccelerationYSerieName);
+                    if (seriesY != null && BWT901BLE.GetDeviceData(WitSensorKey.AccY).HasValue)
+                    {
+                        seriesY.Points.Add(sensorTime, BWT901BLE.GetDeviceData(WitSensorKey.AccY).Value);
+                    }
+
+                    var seriesZ = GetSeriesByName(this.AccelerationChart.Series, AccelerationZSerieName);
+                    if (seriesZ != null && BWT901BLE.GetDeviceData(WitSensorKey.AccZ).HasValue)
+                    {
+                        seriesZ.Points.Add(sensorTime, BWT901BLE.GetDeviceData(WitSensorKey.AccZ).Value);
+                    }
+
+                    // Update data of the angle Chart
+                    var serieAngleX = GetSeriesByName(this.angleChartControl.Series, AngleXSerieName);
+                    if (serieAngleX != null && BWT901BLE.GetDeviceData(WitSensorKey.AngleX).HasValue)
+                    {
+                        serieAngleX.Points.Add(sensorTime, BWT901BLE.GetDeviceData(WitSensorKey.AngleX).Value);
+                    }
+
+                    var serieAngleY = GetSeriesByName(this.angleChartControl.Series, AngleYSerieName);
+                    if (serieAngleY != null && BWT901BLE.GetDeviceData(WitSensorKey.AngleY).HasValue)
+                    {
+                        serieAngleY.Points.Add(sensorTime, BWT901BLE.GetDeviceData(WitSensorKey.AngleY).Value);
+                    }
+
+                    var serieAngleZ = GetSeriesByName(this.angleChartControl.Series, AngleZSerieName);
+                    if (serieAngleZ != null && BWT901BLE.GetDeviceData(WitSensorKey.AngleZ).HasValue)
+                    {
+                        serieAngleZ.Points.Add(sensorTime, BWT901BLE.GetDeviceData(WitSensorKey.AngleZ).Value);
+                    }
+                });
+            }
+            myListener.Flush();
         }
 
         /// <summary>
@@ -206,6 +292,7 @@ namespace Wit.Example_BWT901BLE
                 // 多设备的展示数据
                 // Display data for multiple devices
                 string DeviceData = "";
+                string rawData = "";
                 Thread.Sleep(100);
                 // 刷新所有连接设备的数据
                 // Refresh data for all connected devices
@@ -216,11 +303,20 @@ namespace Wit.Example_BWT901BLE
                     if (bWT901BLE.IsOpen())
                     {
                         DeviceData += GetDeviceData(bWT901BLE) + "\r\n";
+
+                        // Get the raw data Hex send and receive
+                        rawData += bWT901BLE.GetDeviceData("RawData");
                     }
                 }
                 dataRichTextBox.Invoke(new Action(() =>
                 {
                     dataRichTextBox.Text = DeviceData;
+                }));
+
+                // write the raw Data in the richTextBox
+                richTextBoxRawData.Invoke(new Action(() =>
+                {
+                    richTextBoxRawData.AppendText(rawData);
                 }));
             }
         }
@@ -564,6 +660,18 @@ namespace Wit.Example_BWT901BLE
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private ChartSeries GetSeriesByName(ChartSeriesCollection series, string name)
+        {
+            for (var i = 0; i < series.Count; i++)
+            {
+                if (series[i].Name == name)
+                {
+                    return series[i];
+                }
+            }
+            return null;
         }
     }
 }
