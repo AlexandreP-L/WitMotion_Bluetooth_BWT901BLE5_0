@@ -29,23 +29,29 @@ namespace Wit.Example_BWT901BLE
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries7 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
-            Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo7 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
-            Syncfusion.Windows.Forms.Chart.ChartLineInfo chartLineInfo2 = new Syncfusion.Windows.Forms.Chart.ChartLineInfo();
-            Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries8 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
-            Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo8 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
-            Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries9 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
-            Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo9 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
             Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries1 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
             Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo1 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
+            Syncfusion.Windows.Forms.Chart.ChartLineInfo chartLineInfo1 = new Syncfusion.Windows.Forms.Chart.ChartLineInfo();
             Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries2 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
             Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo2 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
             Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries3 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
             Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo3 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
+            Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries4 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
+            Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo4 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
+            Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries5 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
+            Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo5 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
+            Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries6 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
+            Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo6 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataRichTextBox = new System.Windows.Forms.RichTextBox();
             this.leftPanel = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.recordTimer_lbl = new System.Windows.Forms.Label();
+            this.openRecordFolder_btn = new System.Windows.Forms.Button();
+            this.recordSettings_btn = new System.Windows.Forms.Button();
+            this.record_btn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.bandWidth256 = new System.Windows.Forms.Button();
             this.bandWidth20 = new System.Windows.Forms.Button();
@@ -66,8 +72,11 @@ namespace Wit.Example_BWT901BLE
             this.tabGraph = new System.Windows.Forms.TabPage();
             this.angleChartControl = new Syncfusion.Windows.Forms.Chart.ChartControl();
             this.AccelerationChart = new Syncfusion.Windows.Forms.Chart.ChartControl();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.recordFrequencyTimer = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.leftPanel.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -90,10 +99,48 @@ namespace Wit.Example_BWT901BLE
             // 
             // leftPanel
             // 
+            this.leftPanel.Controls.Add(this.groupBox4);
             this.leftPanel.Controls.Add(this.groupBox3);
             this.leftPanel.Controls.Add(this.groupBox2);
             resources.ApplyResources(this.leftPanel, "leftPanel");
             this.leftPanel.Name = "leftPanel";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.recordTimer_lbl);
+            this.groupBox4.Controls.Add(this.openRecordFolder_btn);
+            this.groupBox4.Controls.Add(this.recordSettings_btn);
+            this.groupBox4.Controls.Add(this.record_btn);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
+            // 
+            // recordTimer_lbl
+            // 
+            resources.ApplyResources(this.recordTimer_lbl, "recordTimer_lbl");
+            this.recordTimer_lbl.Name = "recordTimer_lbl";
+            // 
+            // openRecordFolder_btn
+            // 
+            resources.ApplyResources(this.openRecordFolder_btn, "openRecordFolder_btn");
+            this.openRecordFolder_btn.Name = "openRecordFolder_btn";
+            this.openRecordFolder_btn.UseVisualStyleBackColor = true;
+            this.openRecordFolder_btn.Click += new System.EventHandler(this.openRecordFolder_btn_Click);
+            // 
+            // recordSettings_btn
+            // 
+            resources.ApplyResources(this.recordSettings_btn, "recordSettings_btn");
+            this.recordSettings_btn.Name = "recordSettings_btn";
+            this.recordSettings_btn.UseVisualStyleBackColor = true;
+            this.recordSettings_btn.Click += new System.EventHandler(this.RecordSettings_btn_Click);
+            // 
+            // record_btn
+            // 
+            this.record_btn.BackColor = System.Drawing.Color.Chartreuse;
+            resources.ApplyResources(this.record_btn, "record_btn");
+            this.record_btn.Name = "record_btn";
+            this.record_btn.UseVisualStyleBackColor = false;
+            this.record_btn.Click += new System.EventHandler(this.record_btn_Click);
             // 
             // groupBox3
             // 
@@ -274,56 +321,56 @@ namespace Wit.Example_BWT901BLE
             this.angleChartControl.PrimaryYAxis.Margin = true;
             this.angleChartControl.PrimaryYAxis.Title = "Angle";
             this.angleChartControl.PrimaryYAxis.TitleColor = System.Drawing.SystemColors.ControlText;
-            chartSeries7.FancyToolTip.ResizeInsideSymbol = true;
-            chartSeries7.Name = "Angle X";
-            chartSeries7.Resolution = 0D;
-            chartSeries7.StackingGroup = "Default Group";
-            chartSeries7.Style.AltTagFormat = "";
-            chartSeries7.Style.Border.Width = 2F;
-            chartSeries7.Style.DisplayShadow = true;
-            chartSeries7.Style.DrawTextShape = false;
-            chartLineInfo2.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            chartLineInfo2.Color = System.Drawing.SystemColors.ControlText;
-            chartLineInfo2.DashPattern = null;
-            chartLineInfo2.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            chartLineInfo2.Width = 1F;
-            chartCustomShapeInfo7.Border = chartLineInfo2;
-            chartCustomShapeInfo7.Color = System.Drawing.SystemColors.HighlightText;
-            chartCustomShapeInfo7.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
-            chartSeries7.Style.TextShape = chartCustomShapeInfo7;
-            chartSeries7.Text = "Angle X";
-            chartSeries7.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
-            chartSeries8.FancyToolTip.ResizeInsideSymbol = true;
-            chartSeries8.Name = "Angle Y";
-            chartSeries8.Resolution = 0D;
-            chartSeries8.StackingGroup = "Default Group";
-            chartSeries8.Style.AltTagFormat = "";
-            chartSeries8.Style.Border.Width = 2F;
-            chartSeries8.Style.DisplayShadow = true;
-            chartSeries8.Style.DrawTextShape = false;
-            chartCustomShapeInfo8.Border = chartLineInfo2;
-            chartCustomShapeInfo8.Color = System.Drawing.SystemColors.HighlightText;
-            chartCustomShapeInfo8.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
-            chartSeries8.Style.TextShape = chartCustomShapeInfo8;
-            chartSeries8.Text = "Angle Y";
-            chartSeries8.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
-            chartSeries9.FancyToolTip.ResizeInsideSymbol = true;
-            chartSeries9.Name = "Angle Z";
-            chartSeries9.Resolution = 0D;
-            chartSeries9.StackingGroup = "Default Group";
-            chartSeries9.Style.AltTagFormat = "";
-            chartSeries9.Style.Border.Width = 2F;
-            chartSeries9.Style.DisplayShadow = true;
-            chartSeries9.Style.DrawTextShape = false;
-            chartCustomShapeInfo9.Border = chartLineInfo2;
-            chartCustomShapeInfo9.Color = System.Drawing.SystemColors.HighlightText;
-            chartCustomShapeInfo9.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
-            chartSeries9.Style.TextShape = chartCustomShapeInfo9;
-            chartSeries9.Text = "Angle Z";
-            chartSeries9.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
-            this.angleChartControl.Series.Add(chartSeries7);
-            this.angleChartControl.Series.Add(chartSeries8);
-            this.angleChartControl.Series.Add(chartSeries9);
+            chartSeries1.FancyToolTip.ResizeInsideSymbol = true;
+            chartSeries1.Name = "Angle X";
+            chartSeries1.Resolution = 0D;
+            chartSeries1.StackingGroup = "Default Group";
+            chartSeries1.Style.AltTagFormat = "";
+            chartSeries1.Style.Border.Width = 2F;
+            chartSeries1.Style.DisplayShadow = true;
+            chartSeries1.Style.DrawTextShape = false;
+            chartLineInfo1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+            chartLineInfo1.Color = System.Drawing.SystemColors.ControlText;
+            chartLineInfo1.DashPattern = null;
+            chartLineInfo1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            chartLineInfo1.Width = 1F;
+            chartCustomShapeInfo1.Border = chartLineInfo1;
+            chartCustomShapeInfo1.Color = System.Drawing.SystemColors.HighlightText;
+            chartCustomShapeInfo1.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
+            chartSeries1.Style.TextShape = chartCustomShapeInfo1;
+            chartSeries1.Text = "Angle X";
+            chartSeries1.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
+            chartSeries2.FancyToolTip.ResizeInsideSymbol = true;
+            chartSeries2.Name = "Angle Y";
+            chartSeries2.Resolution = 0D;
+            chartSeries2.StackingGroup = "Default Group";
+            chartSeries2.Style.AltTagFormat = "";
+            chartSeries2.Style.Border.Width = 2F;
+            chartSeries2.Style.DisplayShadow = true;
+            chartSeries2.Style.DrawTextShape = false;
+            chartCustomShapeInfo2.Border = chartLineInfo1;
+            chartCustomShapeInfo2.Color = System.Drawing.SystemColors.HighlightText;
+            chartCustomShapeInfo2.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
+            chartSeries2.Style.TextShape = chartCustomShapeInfo2;
+            chartSeries2.Text = "Angle Y";
+            chartSeries2.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
+            chartSeries3.FancyToolTip.ResizeInsideSymbol = true;
+            chartSeries3.Name = "Angle Z";
+            chartSeries3.Resolution = 0D;
+            chartSeries3.StackingGroup = "Default Group";
+            chartSeries3.Style.AltTagFormat = "";
+            chartSeries3.Style.Border.Width = 2F;
+            chartSeries3.Style.DisplayShadow = true;
+            chartSeries3.Style.DrawTextShape = false;
+            chartCustomShapeInfo3.Border = chartLineInfo1;
+            chartCustomShapeInfo3.Color = System.Drawing.SystemColors.HighlightText;
+            chartCustomShapeInfo3.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
+            chartSeries3.Style.TextShape = chartCustomShapeInfo3;
+            chartSeries3.Text = "Angle Z";
+            chartSeries3.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
+            this.angleChartControl.Series.Add(chartSeries1);
+            this.angleChartControl.Series.Add(chartSeries2);
+            this.angleChartControl.Series.Add(chartSeries3);
             this.angleChartControl.Spacing = 10F;
             this.angleChartControl.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
@@ -379,51 +426,51 @@ namespace Wit.Example_BWT901BLE
             this.AccelerationChart.PrimaryYAxis.Margin = true;
             this.AccelerationChart.PrimaryYAxis.Title = "Acceleration";
             this.AccelerationChart.PrimaryYAxis.TitleColor = System.Drawing.SystemColors.ControlText;
-            chartSeries1.FancyToolTip.ResizeInsideSymbol = true;
-            chartSeries1.Name = "Acceleration X";
-            chartSeries1.Resolution = 0D;
-            chartSeries1.StackingGroup = "Default Group";
-            chartSeries1.Style.AltTagFormat = "";
-            chartSeries1.Style.Border.Width = 2F;
-            chartSeries1.Style.DisplayShadow = true;
-            chartSeries1.Style.DrawTextShape = false;
-            chartCustomShapeInfo1.Border = chartLineInfo2;
-            chartCustomShapeInfo1.Color = System.Drawing.SystemColors.HighlightText;
-            chartCustomShapeInfo1.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
-            chartSeries1.Style.TextShape = chartCustomShapeInfo1;
-            chartSeries1.Text = "Acceleration X";
-            chartSeries1.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
-            chartSeries2.FancyToolTip.ResizeInsideSymbol = true;
-            chartSeries2.Name = "Acceleration Y";
-            chartSeries2.Resolution = 0D;
-            chartSeries2.StackingGroup = "Default Group";
-            chartSeries2.Style.AltTagFormat = "";
-            chartSeries2.Style.Border.Width = 2F;
-            chartSeries2.Style.DisplayShadow = true;
-            chartSeries2.Style.DrawTextShape = false;
-            chartCustomShapeInfo2.Border = chartLineInfo2;
-            chartCustomShapeInfo2.Color = System.Drawing.SystemColors.HighlightText;
-            chartCustomShapeInfo2.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
-            chartSeries2.Style.TextShape = chartCustomShapeInfo2;
-            chartSeries2.Text = "Acceleration Y";
-            chartSeries2.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
-            chartSeries3.FancyToolTip.ResizeInsideSymbol = true;
-            chartSeries3.Name = "Acceleration Z";
-            chartSeries3.Resolution = 0D;
-            chartSeries3.StackingGroup = "Default Group";
-            chartSeries3.Style.AltTagFormat = "";
-            chartSeries3.Style.Border.Width = 2F;
-            chartSeries3.Style.DisplayShadow = true;
-            chartSeries3.Style.DrawTextShape = false;
-            chartCustomShapeInfo3.Border = chartLineInfo2;
-            chartCustomShapeInfo3.Color = System.Drawing.SystemColors.HighlightText;
-            chartCustomShapeInfo3.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
-            chartSeries3.Style.TextShape = chartCustomShapeInfo3;
-            chartSeries3.Text = "Acceleration Z";
-            chartSeries3.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
-            this.AccelerationChart.Series.Add(chartSeries1);
-            this.AccelerationChart.Series.Add(chartSeries2);
-            this.AccelerationChart.Series.Add(chartSeries3);
+            chartSeries4.FancyToolTip.ResizeInsideSymbol = true;
+            chartSeries4.Name = "Acceleration X";
+            chartSeries4.Resolution = 0D;
+            chartSeries4.StackingGroup = "Default Group";
+            chartSeries4.Style.AltTagFormat = "";
+            chartSeries4.Style.Border.Width = 2F;
+            chartSeries4.Style.DisplayShadow = true;
+            chartSeries4.Style.DrawTextShape = false;
+            chartCustomShapeInfo4.Border = chartLineInfo1;
+            chartCustomShapeInfo4.Color = System.Drawing.SystemColors.HighlightText;
+            chartCustomShapeInfo4.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
+            chartSeries4.Style.TextShape = chartCustomShapeInfo4;
+            chartSeries4.Text = "Acceleration X";
+            chartSeries4.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
+            chartSeries5.FancyToolTip.ResizeInsideSymbol = true;
+            chartSeries5.Name = "Acceleration Y";
+            chartSeries5.Resolution = 0D;
+            chartSeries5.StackingGroup = "Default Group";
+            chartSeries5.Style.AltTagFormat = "";
+            chartSeries5.Style.Border.Width = 2F;
+            chartSeries5.Style.DisplayShadow = true;
+            chartSeries5.Style.DrawTextShape = false;
+            chartCustomShapeInfo5.Border = chartLineInfo1;
+            chartCustomShapeInfo5.Color = System.Drawing.SystemColors.HighlightText;
+            chartCustomShapeInfo5.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
+            chartSeries5.Style.TextShape = chartCustomShapeInfo5;
+            chartSeries5.Text = "Acceleration Y";
+            chartSeries5.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
+            chartSeries6.FancyToolTip.ResizeInsideSymbol = true;
+            chartSeries6.Name = "Acceleration Z";
+            chartSeries6.Resolution = 0D;
+            chartSeries6.StackingGroup = "Default Group";
+            chartSeries6.Style.AltTagFormat = "";
+            chartSeries6.Style.Border.Width = 2F;
+            chartSeries6.Style.DisplayShadow = true;
+            chartSeries6.Style.DrawTextShape = false;
+            chartCustomShapeInfo6.Border = chartLineInfo1;
+            chartCustomShapeInfo6.Color = System.Drawing.SystemColors.HighlightText;
+            chartCustomShapeInfo6.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
+            chartSeries6.Style.TextShape = chartCustomShapeInfo6;
+            chartSeries6.Text = "Acceleration Z";
+            chartSeries6.Type = Syncfusion.Windows.Forms.Chart.ChartSeriesType.Line;
+            this.AccelerationChart.Series.Add(chartSeries4);
+            this.AccelerationChart.Series.Add(chartSeries5);
+            this.AccelerationChart.Series.Add(chartSeries6);
             this.AccelerationChart.Spacing = 10F;
             this.AccelerationChart.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
@@ -434,6 +481,15 @@ namespace Wit.Example_BWT901BLE
             this.AccelerationChart.Title.Name = "Default";
             this.AccelerationChart.Titles.Add(this.AccelerationChart.Title);
             this.AccelerationChart.VisualTheme = "";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // recordFrequencyTimer
+            // 
+            this.recordFrequencyTimer.Tick += new System.EventHandler(this.RecordFrequencyTimer_Tick);
             // 
             // Form1
             // 
@@ -446,6 +502,8 @@ namespace Wit.Example_BWT901BLE
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.leftPanel.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -481,6 +539,13 @@ namespace Wit.Example_BWT901BLE
         private System.Windows.Forms.RichTextBox richTextBoxRawData;
         private Syncfusion.Windows.Forms.Chart.ChartControl AccelerationChart;
         private Syncfusion.Windows.Forms.Chart.ChartControl angleChartControl;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button openRecordFolder_btn;
+        private System.Windows.Forms.Button recordSettings_btn;
+        private System.Windows.Forms.Button record_btn;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label recordTimer_lbl;
+        private System.Windows.Forms.Timer recordFrequencyTimer;
     }
 }
 

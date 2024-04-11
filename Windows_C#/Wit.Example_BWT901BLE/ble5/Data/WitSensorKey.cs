@@ -15,130 +15,130 @@ namespace Wit.SDK.Modular.Sensor.Modular.DataProcessor.Constant
         // 芯片时间
         public static StringKey ChipTime { get; } = new StringKey("ChipTime");
 
-        // 加速度X
+        // AccelerationX
         public static DoubleKey AccX { get; } = new DoubleKey("AccX");
 
-        // 加速度Y
+        // Acceleration Y
         public static DoubleKey AccY { get; } = new DoubleKey("AccY");
 
-        // 加速度Z
+        // Acceleration Z
         public static DoubleKey AccZ { get; } = new DoubleKey("AccZ");
 
-        // 加速度矢量和
+        // Acceleration vector sum
         public static DoubleKey AccM { get; } = new DoubleKey("AccM");
 
-        // 角速度
+        // angular velocity X
         public static DoubleKey AsX { get; } = new DoubleKey("AsX");
 
-        // 角速度
+        // angular velocity Y
         public static DoubleKey AsY { get; } = new DoubleKey("AsY");
 
-        // 角速度
+        // angular velocity Z
         public static DoubleKey AsZ { get; } = new DoubleKey("AsZ");
 
-        // 角速度Z矢量和
+        // Angular velocity vector sum
         public static DoubleKey AsM { get; } = new DoubleKey("AsM");
 
-        // 角度X
+        // AngleX
         public static DoubleKey AngleX { get; } = new DoubleKey("AngleX");
 
-        // 角度Y
+        // Angle Y
         public static DoubleKey AngleY { get; } = new DoubleKey("AngleY");
 
-        // 角度Z
+        // Angle Z
         public static DoubleKey AngleZ { get; } = new DoubleKey("AngleZ");
 
-        // 磁场X
+        // Magnetic field X
         public static DoubleKey HX { get; } = new DoubleKey("HX");
 
-        // 磁场Y
+        // Magnetic field Y
         public static DoubleKey HY { get; } = new DoubleKey("HY");
 
-        // 磁场Z
+        // Magnetic field Z
         public static DoubleKey HZ { get; } = new DoubleKey("HZ");
 
-        // 磁场矢量和
+        // Magnetic field vector sum
         public static DoubleKey HM { get; } = new DoubleKey("HM");
 
-        // 温度
+        // Temperature
         public static DoubleKey T { get; } = new DoubleKey("T");
 
-        // 扩展端口 1
+        // Expansion port 1
         public static ShortKey D0 { get; } = new ShortKey("D0");
 
-        // 扩展端口 2
+        // Expansion port 2
         public static ShortKey D1 { get; } = new ShortKey("D1");
 
-        // 扩展端口 3
+        // Expansion port 3
         public static ShortKey D2 { get; } = new ShortKey("D2");
 
-        // 扩展端口 4
+        // Expansion port 4
         public static ShortKey D3 { get; } = new ShortKey("D3");
 
-        // 气压
+        // Air Pressure
         public static DoubleKey P { get; } = new DoubleKey("P");
 
-        // 高度
+        // High
         public static DoubleKey H { get; } = new DoubleKey("H");
 
-        // 经度
+        // Longitude
         public static DoubleKey Lon { get; } = new DoubleKey("Lon");
 
-        // 经度度表现形式
+        // Longitude degree representation
         public static DoubleKey LonDeg { get; } = new DoubleKey("LonDeg");
 
-        // 纬度
+        // Latitude
         public static DoubleKey Lat { get; } = new DoubleKey("Lat");
 
-        // 纬度度表现形式
+        // Latitude degree representation
         public static DoubleKey LatDeg { get; } = new DoubleKey("LatDeg");
 
         /// <summary>
-        /// GPS状态
+        /// GPS status
         /// </summary>
         public static DoubleKey GPSStatus { get; } = new DoubleKey("GPSStatus");
 
 
-        // GPS高度
+        // GPS altitude
         public static DoubleKey GPSHeight { get; } = new DoubleKey("GPSHeight");
 
         // GPS航向
         public static DoubleKey GPSYaw { get; } = new DoubleKey("GPSYaw");
 
-        // GPS地速
+        // GPS ground speed
         public static DoubleKey GPSV { get; } = new DoubleKey("GPSV");
 
-        // 四元数0
+        // quaternion 0
         public static DoubleKey Q0 { get; } = new DoubleKey("Q0");
 
-        // 四元数1
+        // quaternion 1
         public static DoubleKey Q1 { get; } = new DoubleKey("Q1");
 
-        // 四元数2
+        // quaternion 2
         public static DoubleKey Q2 { get; } = new DoubleKey("Q2");
 
-        // 四元数3
+        // quaternion 3
         public static DoubleKey Q3 { get; } = new DoubleKey("Q3");
 
-        // 卫星数量
+        // Number of satellites
         public static IntKey SN { get; } = new IntKey("SN");
 
-        // 位置定位精度
+        // Position positioning accuracy
         public static DoubleKey PDOP { get; } = new DoubleKey("PDOP");
 
-        // 水平定位精度
+        // Horizontal positioning accuracy
         public static DoubleKey HDOP { get; } = new DoubleKey("HDOP");
 
-        // 垂直定位精度
+        // Vertical positioning accuracy
         public static DoubleKey VDOP { get; } = new DoubleKey("VDOP");
 
-        // 版本号
+        // Version number
         public static StringKey VersionNumber { get; } = new StringKey("VersionNumber");
 
-        // 序列号
+        // Serial Number
         public static StringKey SerialNumber { get; } = new StringKey("SerialNumber");
 
-        // 电量
+        // Battery
         public static DoubleKey PowerPercent { get; } = new DoubleKey("PowerPercent");
     }
 }

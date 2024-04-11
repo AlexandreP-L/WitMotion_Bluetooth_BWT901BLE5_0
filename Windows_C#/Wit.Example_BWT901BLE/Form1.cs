@@ -12,6 +12,17 @@ using Wit.Bluetooth.WinBlue.Utils;
 using Wit.Bluetooth.WinBlue.Interface;
 using Syncfusion.Windows.Forms.Chart;
 using log4net;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
+using System.Drawing;
+using System.ComponentModel;
+using System.IO;
+using System.Text.RegularExpressions;
+using KBCsv;
+using Syncfusion.Windows.Forms.Chart.SvgBase;
+using System.Reflection;
+using Wit.SDK.Sensor.Device.Enum;
+using System.Xml.Serialization;
+using System.Data;
 
 namespace Wit.Example_BWT901BLE
 {   
@@ -40,8 +51,17 @@ namespace Wit.Example_BWT901BLE
         private const string AngleYSerieName = "Angle Y";
         private const string AngleZSerieName = "Angle Z";
 
+        private bool doRecord = false;
+
+        private string RootRecordPath => RecordDataSettings.RootRecordDirectoryPath;
+        private string currentTimeFolderPath;
+
         private Log4netTraceListener myListener;
-        private ILog logs = LogManager.GetLogger(typeof(Form1));
+        private readonly ILog logs = LogManager.GetLogger(typeof(Form1));
+        private readonly Stopwatch stopwatch = new Stopwatch();
+        private RecordDataSettings recordDataSettings;
+        private IEnumerable<KeyValuePair<string, DataTable>> sensorDataTable = new List<KeyValuePair<string, DataTable>>();
+
 
         /// <summary>
         /// 蓝牙管理器
@@ -70,6 +90,14 @@ namespace Wit.Example_BWT901BLE
             InitializeComponent();
             myListener = new Log4netTraceListener(logs);
             Trace.Listeners.Add(myListener);
+            this.record_btn.Enabled = false;
+            XmlSerializer serializer = new XmlSerializer(typeof(RecordDataSettings));
+
+            using (Stream reader = new FileStream(RecordDataSettings.RecordSettingsFilePath, FileMode.Open))
+            {
+                this.recordDataSettings = (RecordDataSettings)serializer.Deserialize(reader);
+            }
+
         }
 
         /// <summary>
@@ -155,6 +183,7 @@ namespace Wit.Example_BWT901BLE
                             device.SensorName = bWT901BLE.GetDeviceName();
                             device.bwt901Ble = bWT901BLE;
                             this.tabMain.Controls.Add(device);
+                            this.record_btn.Enabled = true;
                         });
                     }
                     
@@ -672,6 +701,265 @@ namespace Wit.Example_BWT901BLE
                 }
             }
             return null;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (this.stopwatch.IsRunning)
+            {
+                var timerString = string.Empty;
+                var time = this.stopwatch.Elapsed;
+                if (time.Days > 0)
+                {
+                    timerString += $"{time.Days} days and ";
+                }
+                if (time.Hours > 0)
+                {
+                    timerString += $"{time.Hours} hours and ";
+                }
+                if (time.Minutes > 0)
+                {
+                    timerString += $"{time.Minutes} minutes and ";
+                }
+                if (time.Seconds > 0)
+                {
+                    timerString += $"{time.Seconds} seconds";
+                }
+
+                Regex regex = new Regex("(\\s+(and)\\s*)$");
+
+                timerString = regex.Replace(timerString, "");
+
+                this.recordTimer_lbl.Text = timerString;
+            }
+        }
+
+        private void record_btn_Click(object sender, EventArgs e)
+        {
+            this.doRecord = !this.doRecord;
+            if (this.doRecord)
+            {
+                this.timer1.Interval = 1000;
+                this.timer1.Start();
+                this.stopwatch.Restart();
+                this.timer1.Tick += timer1_Tick;
+
+                // Update recording button
+                this.record_btn.Text = "Stop Recording";
+                this.record_btn.BackColor = Color.Red;
+
+
+                StartRecording();
+            }
+            else
+            {
+                this.timer1.Stop();
+                this.recordFrequencyTimer.Stop();
+                StopRecording();
+
+                if (MessageBox.Show("Do you want to open the record folder?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        Process.Start(this.currentTimeFolderPath);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+
+                // Update recording button
+                this.record_btn.Text = "Start Recording";
+                this.record_btn.BackColor = Color.Chartreuse;
+
+                this.recordTimer_lbl.Text = string.Empty;
+            }
+
+        }
+
+        private void openRecordFolder_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(this.RootRecordPath))
+                {
+                    Directory.CreateDirectory(this.RootRecordPath);
+                }
+                Process.Start(this.RootRecordPath);
+            }
+            catch (Win32Exception win32Exception)
+            {
+                //The system cannot find the file specified...
+                Console.WriteLine(win32Exception.Message);
+            }
+        }
+
+        private void StartRecording()
+        {
+            var dateFolderPath = Path.Combine(this.RootRecordPath, DateTime.Now.ToString("yyyy-MM-dd"));
+            currentTimeFolderPath = Path.Combine(dateFolderPath, DateTime.Now.ToString("HH-mm-ss-fff"));
+
+            if (!Directory.Exists(currentTimeFolderPath))
+            {
+                Directory.CreateDirectory(currentTimeFolderPath);
+            }
+
+            // Deserialize the record setting
+            XmlSerializer serializer = new XmlSerializer(typeof(RecordDataSettings));
+
+            using (Stream reader = new FileStream(RecordDataSettings.RecordSettingsFilePath, FileMode.Open))
+            {
+                this.recordDataSettings = (RecordDataSettings)serializer.Deserialize(reader);
+            }
+
+            foreach (DataFilterColumn column in this.recordDataSettings.DataFilterColumns)
+            {
+                if (column.IsChecked)
+                {
+                }
+                
+            }
+            
+
+
+            this.recordFrequencyTimer.Interval = this.recordDataSettings.RecordFrequency;
+            this.recordFrequencyTimer.Start();
+
+        }
+
+        private void WriteRecord(Bwt901ble bWT901BLE, System.Data.DataTable data)
+        {
+            var deviceName = bWT901BLE.GetDeviceName().Replace(':', '.');
+            using (var writer = new FileStream(currentTimeFolderPath + $"\\{deviceName}" + ".csv", FileMode.Create))
+            {
+                using (var csvWriter = new CsvWriter(writer))
+                {
+                    var dataHeader = new string[data.Columns.Count];
+                    for (int i = 0; i < data.Columns.Count; i++)
+                    {
+                        dataHeader.SetValue(data.Columns[i].ColumnName, i);
+                    }
+                    csvWriter.WriteRecord(dataHeader);
+
+                    foreach (var row in data.Rows)
+                    {
+                        var dataRecord = new string[data.Columns.Count];
+                        for (int i = 0; i < data.Columns.Count; i++)
+                        {
+                            dataRecord.SetValue(row.ToString(), i);
+                        }
+
+                        csvWriter.WriteRecord(dataRecord);
+                    }
+                }
+            }
+        }
+
+        // Enregistre les données dans les fichiers du settings.
+        private void StopRecording()
+        {
+            for (int i = 0; i < FoundDeviceDict.Count; i++)
+            {
+                var keyValue = FoundDeviceDict.ElementAt(i);
+                Bwt901ble bWT901BLE = keyValue.Value;
+
+                if (bWT901BLE.IsOpen() == false)
+                {
+                    return;
+                }
+
+                var deviceName = bWT901BLE.GetDeviceName().Replace(':', '.');
+
+                foreach (var fileSetting in recordDataSettings.FileSettings)
+                {
+                    if (fileSetting.IsEnabled)
+                    {
+                        if (fileSetting.IsSeparatedByDevices)
+                        {
+                            // TODO write the data in multiple file
+                            var table = sensorDataTable.FirstOrDefault(s => s.Key == keyValue.Key).Value;
+                            if (table != null)
+                            {
+                                // For csv file
+                                using (var writer = new FileStream(currentTimeFolderPath + $"\\{deviceName}" + ".csv", FileMode.Create))
+                                {
+                                    using (var csvWriter = new CsvWriter(writer))
+                                    {
+                                        var dataHeader = new string[table.Columns.Count];
+                                        for (int j = 0; j < table.Columns.Count; j++)
+                                        {
+                                            dataHeader.SetValue(table.Columns[j].ColumnName, j);
+                                        }
+                                        csvWriter.WriteRecord(dataHeader);
+
+                                        foreach (DataRow row in table.Rows)
+                                        {
+                                            var dataRecord = new string[table.Columns.Count];
+                                            for (int j = 0; j < table.Columns.Count; j++)
+                                            {
+                                                dataRecord.SetValue(row.ItemArray[j].ToString(), j);
+                                            }
+
+                                            csvWriter.WriteRecord(dataRecord);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // TODO write the data in a single file
+                        }
+                    }
+                }
+            }
+        }
+
+        private void RecordSettings_btn_Click(object sender, EventArgs e)
+        {
+            RecordSettingsForm recordSettings = new RecordSettingsForm(this.recordDataSettings);
+            recordSettings.ShowDialog();
+        }
+
+        private void RecordFrequencyTimer_Tick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < FoundDeviceDict.Count; i++)
+            {
+                var keyValue = FoundDeviceDict.ElementAt(i);
+                Bwt901ble bWT901BLE = keyValue.Value;
+
+                if (bWT901BLE.IsOpen() == false)
+                {
+                    return;
+                }
+
+                var table = sensorDataTable.FirstOrDefault(s => s.Key == keyValue.Key).Value;
+
+                if (table == null)
+                {
+                    table = new DataTable();
+                    foreach (var column in this.recordDataSettings.DataFilterColumns)
+                    {
+                        if (column.IsChecked)
+                        {
+                            table.Columns.Add(column.Name);
+                        }
+                    }
+                    sensorDataTable = sensorDataTable.Append(new KeyValuePair<string, DataTable>(keyValue.Key, table));
+                }
+
+                var row = table.NewRow();
+                foreach (var column in this.recordDataSettings.DataFilterColumns)
+                {
+                    if (column.IsChecked)
+                    {
+                        row[column.Name] = bWT901BLE.GetDeviceData(column.Key);
+                    }
+                }
+
+                table.Rows.Add(row);
+            }
         }
     }
 }

@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="KBCsv, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc96fa93a217f7a1, processorArchitecture=MSIL">
+      <HintPath>packages\KBCsv.6.0.0\lib\netstandard2.0\KBCsv.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.17.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>packages\log4net.2.0.17\lib\net45\log4net.dll</HintPath>
     </Reference>
@@ -81,6 +84,12 @@
     <Compile Include="ble5\Components\Bwt901bleProcessor.cs" />
     <Compile Include="ble5\Components\Bwt901bleResolver.cs" />
     <Compile Include="ble5\Data\WitSensorKey.cs" />
+    <Compile Include="DataColumnFilteringForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataColumnFilteringForm.Designer.cs">
+      <DependentUpon>DataColumnFilteringForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,14 +97,26 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Lo4netTraceListener.cs" />
+    <Compile Include="Model\DataFilterColumn.cs" />
+    <Compile Include="Model\FileSetting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\RecordDataSettings.cs" />
+    <Compile Include="RecordSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecordSettingsForm.Designer.cs">
+      <DependentUpon>RecordSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SensorMainData.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SensorMainData.Designer.cs">
       <DependentUpon>SensorMainData.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DataColumnFilteringForm.resx">
+      <DependentUpon>DataColumnFilteringForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,6 +133,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RecordSettingsForm.resx">
+      <DependentUpon>RecordSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SensorMainData.resx">
       <DependentUpon>SensorMainData.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,6 +143,9 @@
     <None Include="packages.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Properties\DataSources\FileSetting.datasource" />
+    <None Include="Properties\DataSources\FileSettings.datasource" />
+    <None Include="Properties\DataSources\RecordSettingsForm.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
