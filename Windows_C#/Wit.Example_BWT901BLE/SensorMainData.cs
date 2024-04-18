@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Windows.Foundation.Collections;
 using Wit.SDK.Modular.WitSensorApi.Modular.BWT901BLE;
 
 namespace Wit.Example_BWT901BLE
@@ -54,6 +46,18 @@ namespace Wit.Example_BWT901BLE
             set
             {
                 this.angleZTextBox.Text = value;
+            }
+        }
+
+        public string SignalStrength
+        {
+            get
+            {
+                return this.signalStrengthValue.Text;
+            }
+            set
+            {
+                this.signalStrengthValue.Text = value;
             }
         }
 

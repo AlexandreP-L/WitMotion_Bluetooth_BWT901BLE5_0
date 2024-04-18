@@ -35,15 +35,23 @@
             this.cancel_btn = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileDataItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recordFrequence_num = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.recordSettingsInfo_lbl = new System.Windows.Forms.Label();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileSettingBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.fileSettingBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.recordFrequence_num)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSettingBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSettingBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,7 +77,7 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewCheckBoxColumn2,
             this.dataGridViewTextBoxColumn3});
-            this.dataGridView1.DataSource = this.fileSettingBindingSource;
+            this.dataGridView1.DataSource = this.fileSettingBindingSource1;
             this.dataGridView1.Location = new System.Drawing.Point(0, 19);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(799, 256);
@@ -114,6 +122,66 @@
             this.fileDataItemsToolStripMenuItem.Text = "File Data Items";
             this.fileDataItemsToolStripMenuItem.Click += new System.EventHandler(this.fileDataItemsToolStripMenuItem_Click);
             // 
+            // recordFrequence_num
+            // 
+            this.recordFrequence_num.Location = new System.Drawing.Point(652, 7);
+            this.recordFrequence_num.Maximum = new decimal(new int[] {
+            1215752192,
+            23,
+            0,
+            0});
+            this.recordFrequence_num.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.recordFrequence_num.Name = "recordFrequence_num";
+            this.recordFrequence_num.Size = new System.Drawing.Size(110, 20);
+            this.recordFrequence_num.TabIndex = 5;
+            this.recordFrequence_num.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(514, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Record Frequency";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(768, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "ms";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(615, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "every";
+            // 
+            // recordSettingsInfo_lbl
+            // 
+            this.recordSettingsInfo_lbl.AutoSize = true;
+            this.recordSettingsInfo_lbl.BackColor = System.Drawing.SystemColors.Control;
+            this.recordSettingsInfo_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.recordSettingsInfo_lbl.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.recordSettingsInfo_lbl.Location = new System.Drawing.Point(32, 309);
+            this.recordSettingsInfo_lbl.Name = "recordSettingsInfo_lbl";
+            this.recordSettingsInfo_lbl.Size = new System.Drawing.Size(0, 18);
+            this.recordSettingsInfo_lbl.TabIndex = 9;
+            // 
             // dataGridViewCheckBoxColumn1
             // 
             this.dataGridViewCheckBoxColumn1.DataPropertyName = "IsEnabled";
@@ -147,6 +215,10 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
+            // fileSettingBindingSource1
+            // 
+            this.fileSettingBindingSource1.DataSource = typeof(Wit.Example_BWT901BLE.FileSetting);
+            // 
             // fileSettingBindingSource
             // 
             this.fileSettingBindingSource.DataSource = typeof(Wit.Example_BWT901BLE.FileSetting);
@@ -156,17 +228,24 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.recordSettingsInfo_lbl);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.recordFrequence_num);
             this.Controls.Add(this.cancel_btn);
             this.Controls.Add(this.saveSettings);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RecordSettingsForm";
-            this.Text = "RecordSettingsForm";
+            this.Text = "Record Settings";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.recordFrequence_num)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSettingBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSettingBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -191,5 +270,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.NumericUpDown recordFrequence_num;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.BindingSource fileSettingBindingSource1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label recordSettingsInfo_lbl;
     }
 }

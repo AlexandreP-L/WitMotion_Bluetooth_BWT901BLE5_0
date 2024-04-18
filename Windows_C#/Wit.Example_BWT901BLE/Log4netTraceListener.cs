@@ -12,6 +12,7 @@ namespace Wit.Example_BWT901BLE
 
         public Log4netTraceListener()
         {
+            log4net.Config.XmlConfigurator.Configure();
             _log = log4net.LogManager.GetLogger("System.Diagnostics.Redirection");
         }
 

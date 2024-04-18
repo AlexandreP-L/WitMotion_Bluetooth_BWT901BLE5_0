@@ -23,6 +23,11 @@ using System.Reflection;
 using Wit.SDK.Sensor.Device.Enum;
 using System.Xml.Serialization;
 using System.Data;
+using Windows.Devices.Bluetooth.Advertisement;
+using Wit.Example_BWT901BLE.Model;
+using System.Web.UI.WebControls;
+using Windows.Devices.Bluetooth;
+using Windows.Devices.Enumeration;
 
 namespace Wit.Example_BWT901BLE
 {   
@@ -97,7 +102,6 @@ namespace Wit.Example_BWT901BLE
             {
                 this.recordDataSettings = (RecordDataSettings)serializer.Deserialize(reader);
             }
-
         }
 
         /// <summary>
@@ -186,7 +190,12 @@ namespace Wit.Example_BWT901BLE
                             this.record_btn.Enabled = true;
                         });
                     }
-                    
+
+                    // Don't work when device connected and there is no solution for windows
+                    //var watcher = new BluetoothLEAdvertisementWatcher();
+                    //watcher.Received += OnWatcher_Received;
+                    //watcher.Start();
+
                     // 打开这个设备
                     // Open this device
                     bWT901BLE.Open();
@@ -219,7 +228,6 @@ namespace Wit.Example_BWT901BLE
                         {
                             mainData.SetCompassStartAngle(angleZ.Value);                            
                         }
-
                     }
 
                     // Update data of the acceleration chart 
@@ -798,11 +806,11 @@ namespace Wit.Example_BWT901BLE
         private void StartRecording()
         {
             var dateFolderPath = Path.Combine(this.RootRecordPath, DateTime.Now.ToString("yyyy-MM-dd"));
-            currentTimeFolderPath = Path.Combine(dateFolderPath, DateTime.Now.ToString("HH-mm-ss-fff"));
+            this.currentTimeFolderPath = Path.Combine(dateFolderPath, DateTime.Now.ToString("HH-mm-ss-fff"));
 
-            if (!Directory.Exists(currentTimeFolderPath))
+            if (!Directory.Exists(this.currentTimeFolderPath))
             {
-                Directory.CreateDirectory(currentTimeFolderPath);
+                Directory.CreateDirectory(this.currentTimeFolderPath);
             }
 
             // Deserialize the record setting
@@ -813,47 +821,9 @@ namespace Wit.Example_BWT901BLE
                 this.recordDataSettings = (RecordDataSettings)serializer.Deserialize(reader);
             }
 
-            foreach (DataFilterColumn column in this.recordDataSettings.DataFilterColumns)
-            {
-                if (column.IsChecked)
-                {
-                }
-                
-            }
-            
-
-
             this.recordFrequencyTimer.Interval = this.recordDataSettings.RecordFrequency;
             this.recordFrequencyTimer.Start();
 
-        }
-
-        private void WriteRecord(Bwt901ble bWT901BLE, System.Data.DataTable data)
-        {
-            var deviceName = bWT901BLE.GetDeviceName().Replace(':', '.');
-            using (var writer = new FileStream(currentTimeFolderPath + $"\\{deviceName}" + ".csv", FileMode.Create))
-            {
-                using (var csvWriter = new CsvWriter(writer))
-                {
-                    var dataHeader = new string[data.Columns.Count];
-                    for (int i = 0; i < data.Columns.Count; i++)
-                    {
-                        dataHeader.SetValue(data.Columns[i].ColumnName, i);
-                    }
-                    csvWriter.WriteRecord(dataHeader);
-
-                    foreach (var row in data.Rows)
-                    {
-                        var dataRecord = new string[data.Columns.Count];
-                        for (int i = 0; i < data.Columns.Count; i++)
-                        {
-                            dataRecord.SetValue(row.ToString(), i);
-                        }
-
-                        csvWriter.WriteRecord(dataRecord);
-                    }
-                }
-            }
         }
 
         // Enregistre les données dans les fichiers du settings.
@@ -877,41 +847,48 @@ namespace Wit.Example_BWT901BLE
                     {
                         if (fileSetting.IsSeparatedByDevices)
                         {
-                            // TODO write the data in multiple file
                             var table = sensorDataTable.FirstOrDefault(s => s.Key == keyValue.Key).Value;
                             if (table != null)
                             {
-                                // For csv file
-                                using (var writer = new FileStream(currentTimeFolderPath + $"\\{deviceName}" + ".csv", FileMode.Create))
+                                // Hack because MatLab, RawData and WPlayFile saveRecord method are not implemented yet
+                                if (fileSetting is CsvFileSetting)
                                 {
-                                    using (var csvWriter = new CsvWriter(writer))
-                                    {
-                                        var dataHeader = new string[table.Columns.Count];
-                                        for (int j = 0; j < table.Columns.Count; j++)
-                                        {
-                                            dataHeader.SetValue(table.Columns[j].ColumnName, j);
-                                        }
-                                        csvWriter.WriteRecord(dataHeader);
-
-                                        foreach (DataRow row in table.Rows)
-                                        {
-                                            var dataRecord = new string[table.Columns.Count];
-                                            for (int j = 0; j < table.Columns.Count; j++)
-                                            {
-                                                dataRecord.SetValue(row.ItemArray[j].ToString(), j);
-                                            }
-
-                                            csvWriter.WriteRecord(dataRecord);
-                                        }
-                                    }
+                                    fileSetting.SaveRecord(this.currentTimeFolderPath, table, fileSetting.PacketNumber, deviceName);
+                                }
+                                if (fileSetting is TextFileSetting)
+                                {
+                                    fileSetting.SaveRecord(this.currentTimeFolderPath, table, fileSetting.PacketNumber, deviceName);
                                 }
                             }
                         }
                         else
                         {
-                            // TODO write the data in a single file
+                            DataTable table = sensorDataTable.First().Value.Clone();
+
+                            foreach (var sensor in sensorDataTable)
+                            {
+                                foreach (DataRow row in sensor.Value.Rows)
+                                {
+                                    table.ImportRow(row);
+                                }
+                                
+                            }
+
+                            // Hack because MatLab, RawData and WPlayFile saveRecord method are not implemented yet
+                            if (fileSetting is CsvFileSetting)
+                            {
+                                fileSetting.SaveRecord(this.currentTimeFolderPath, table, fileSetting.PacketNumber);
+                            }
+                            if (fileSetting is TextFileSetting)
+                            {
+                                fileSetting.SaveRecord(this.currentTimeFolderPath, table, fileSetting.PacketNumber);
+                            }
                         }
                     }
+                }
+                foreach(var sensor in sensorDataTable)
+                {
+                    sensor.Value.Clear();
                 }
             }
         }
@@ -935,10 +912,12 @@ namespace Wit.Example_BWT901BLE
                 }
 
                 var table = sensorDataTable.FirstOrDefault(s => s.Key == keyValue.Key).Value;
-
+                
                 if (table == null)
                 {
                     table = new DataTable();
+                    table.Columns.Add("Time");
+                    table.Columns.Add("Device Name");
                     foreach (var column in this.recordDataSettings.DataFilterColumns)
                     {
                         if (column.IsChecked)
@@ -950,6 +929,12 @@ namespace Wit.Example_BWT901BLE
                 }
 
                 var row = table.NewRow();
+
+                // Will Always appear in the record
+                row["Time"] = DateTime.Now.TimeOfDay.ToString();
+                row["Device Name"] = bWT901BLE.GetDeviceName();
+
+                // Get the checked columns
                 foreach (var column in this.recordDataSettings.DataFilterColumns)
                 {
                     if (column.IsChecked)
@@ -961,5 +946,20 @@ namespace Wit.Example_BWT901BLE
                 table.Rows.Add(row);
             }
         }
+
+        // Event for BLE watcher
+        //private void OnWatcher_Received(BluetoothLEAdvertisementWatcher sender, BluetoothLEAdvertisementReceivedEventArgs args)
+        //{
+        //    if (this.InvokeRequired)
+        //    {
+        //        Invoke((MethodInvoker)delegate ()
+        //        {
+        //            if (this.tabMain.Controls[0] is SensorMainData mainData) {
+        //                mainData.SignalStrength = args.RawSignalStrengthInDBm.ToString();
+        //            }
+        //        });
+        //    }
+        //}
+
     }
 }

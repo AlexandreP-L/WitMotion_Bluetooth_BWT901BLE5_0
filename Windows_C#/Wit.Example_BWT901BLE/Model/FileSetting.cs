@@ -1,26 +1,19 @@
-﻿namespace Wit.Example_BWT901BLE
+﻿using System.Data;
+
+namespace Wit.Example_BWT901BLE
 {
-    public class FileSetting
+    public abstract class FileSetting
     {
-        public FileSetting() { }
+        public abstract bool IsEnabled { get; set; }
 
-        public FileSetting(bool isEnabled, string name, int packetNumber, bool isSeparatedByDevices, string description)
-        {
-            IsEnabled = isEnabled;
-            Name = name;
-            PacketNumber = packetNumber;
-            IsSeparatedByDevices = isSeparatedByDevices;
-            Description = description;
-        }
+        public abstract string Name { get; }
 
-        public bool IsEnabled { get; set; }
+        public abstract int PacketNumber { get; set; }
 
-        public string Name { get; set; }
+        public abstract bool IsSeparatedByDevices { get; set; }
 
-        public int PacketNumber { get; set; }
+        public abstract string Description { get; }
 
-        public bool IsSeparatedByDevices { get; set; }
-
-        public string  Description { get; set; }
+        public abstract void SaveRecord(string currentTimeFolderPath, DataTable table,int packetNumber, string deviceName = null);
     }
 }

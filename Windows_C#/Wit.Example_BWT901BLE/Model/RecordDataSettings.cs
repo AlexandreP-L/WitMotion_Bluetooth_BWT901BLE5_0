@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Wit.Example_BWT901BLE.Model;
 
 namespace Wit.Example_BWT901BLE
 {
@@ -19,16 +20,21 @@ namespace Wit.Example_BWT901BLE
         public RecordDataSettings()
         {
             FileSettings = new FileSetting[] { };
-            DataFilterColumns = new DataFilterColumn[] { }; ;
+            DataFilterColumns = new DataFilterColumn[] { };
         }
 
         public RecordDataSettings(FileSetting[] fileSettings = null, DataFilterColumn[] dataFilterColumns = null)
         {
             FileSettings = fileSettings ?? new FileSetting[] { };
-            DataFilterColumns = dataFilterColumns ?? new DataFilterColumn[] { }; ;
+            DataFilterColumns = dataFilterColumns ?? new DataFilterColumn[] { };
         }
 
         [XmlArray("FileSettings")]
+        [XmlArrayItem(typeof(CsvFileSetting))]
+        [XmlArrayItem(typeof(MatLabFileSetting))]
+        [XmlArrayItem(typeof(RawDataFileSetting))]
+        [XmlArrayItem(typeof(WPlayFileSetting))]
+        [XmlArrayItem(typeof(TextFileSetting))]
         public FileSetting[] FileSettings { get; set; }
 
         [XmlArray("DataFilterColumns")]

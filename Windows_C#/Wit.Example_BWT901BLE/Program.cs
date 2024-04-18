@@ -1,4 +1,6 @@
-﻿using System;
+﻿using log4net;
+using log4net.Repository.Hierarchy;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -6,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Wit.Example_BWT901BLE.Model;
 
 namespace Wit.Example_BWT901BLE
 {
@@ -17,9 +20,11 @@ namespace Wit.Example_BWT901BLE
         [STAThread]
         static void Main()
         {
+            log4net.GlobalContext.Properties["LogFileName"] = "Logs/LogsSensor.txt";
+            Log4netTraceListener log = new Log4netTraceListener(LogManager.GetLogger(typeof(Form1)));
+            log.WriteLine("Logging is enabled!!");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            log4net.Config.XmlConfigurator.Configure();
             try
             {
                 if (!Directory.Exists(RecordDataSettings.RootRecordDirectoryPath))
@@ -45,11 +50,11 @@ namespace Wit.Example_BWT901BLE
                         RecordDataSettings recordDataSettings = new RecordDataSettings();
                         FileSetting[] newFileSettings = new FileSetting[]
                         {
-                        new FileSetting(true, "csv file", 100000, true, "Record data in CSV table format"),
-                        new FileSetting(true, "mat file", -1, false, "Record data in the form of a MATLAB data File"),
-                        // new FileSettings(true, "wplay file", -1, true, "Record playable files in binary format"),
-                        new FileSetting(false, "raw-data file", 100000, false, "Record the data output by the device"),
-                        new FileSetting(false, "txt file", 100000, false, "Record data in txt table format"),
+                        new CsvFileSetting(),
+                        //new MatLabFileSetting(),
+                        //new WPlayFileSetting(),
+                        //new RawDataFileSetting(),
+                        new TextFileSetting(),
 
                         };
 

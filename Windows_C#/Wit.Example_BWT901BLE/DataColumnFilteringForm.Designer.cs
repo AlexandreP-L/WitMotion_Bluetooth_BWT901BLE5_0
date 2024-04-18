@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.listColumn_ckl = new System.Windows.Forms.CheckedListBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.save_btn = new System.Windows.Forms.Button();
             this.closeForm_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -38,6 +37,7 @@
             // 
             this.listColumn_ckl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listColumn_ckl.CheckOnClick = true;
             this.listColumn_ckl.FormattingEnabled = true;
             this.listColumn_ckl.Location = new System.Drawing.Point(0, -1);
             this.listColumn_ckl.MultiColumn = true;
@@ -47,7 +47,7 @@
             // 
             // save_btn
             // 
-            this.save_btn.Location = new System.Drawing.Point(324, 204);
+            this.save_btn.Location = new System.Drawing.Point(319, 204);
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(92, 32);
             this.save_btn.TabIndex = 1;
@@ -57,7 +57,7 @@
             // 
             // closeForm_btn
             // 
-            this.closeForm_btn.Location = new System.Drawing.Point(157, 204);
+            this.closeForm_btn.Location = new System.Drawing.Point(186, 204);
             this.closeForm_btn.Name = "closeForm_btn";
             this.closeForm_btn.Size = new System.Drawing.Size(92, 32);
             this.closeForm_btn.TabIndex = 2;
@@ -82,7 +82,6 @@
         #endregion
 
         private System.Windows.Forms.CheckedListBox listColumn_ckl;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button save_btn;
         private System.Windows.Forms.Button closeForm_btn;
     }
